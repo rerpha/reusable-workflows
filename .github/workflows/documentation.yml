@@ -2,10 +2,9 @@ name: documentation
 
 on:
   workflow_call:
-    inputs:
-      GITHUB_TOKEN:
+    secrets:
+      token:
         required: true
-        type: string
       
 permissions:
   contents: write
@@ -27,6 +26,6 @@ jobs:
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
         with:
           publish_branch: gh-pages
-          github_token: ${{ GITHUB_TOKEN }}
+          github_token: ${{ secrets.token }}
           publish_dir: _build/
           force_orphan: true
